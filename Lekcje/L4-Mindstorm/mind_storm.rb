@@ -1,19 +1,48 @@
-require "ruby/nxt"
+require 'rubygems'
+require 'serialport' # use Kernel::require on windows, works better.
+Kernel::require  'serialport'
 
-nxt = NXT.new('/dev/tty.NXT-DevB-1')
+#params for serial port
+port_str = 2  #may be different for you
+baud_rate = 11500
+data_bits = 8
+stop_bits = 1
+parity = SerialPort::NONE
 
-nxt.motor_a do |m|
-  m.forward(:degrees => 180, :power => 15)
+sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
+
+#just read forever
+while true do
+  sp_char = sp.getc
+  if sp_char
+    printf("%c", sp_char)
+  end
 end
 
-nxt.motors_bc do |m|
-  m.backward(:time => 5, :power => 20)
-end
+#require 'rubygems'
+#require 'serialport'
+#
+#require 'nxt_comm'
+#
+## causes ruby-nxt to print out all the bytes sent and received
+#$DEBUG = true
+#
+#
+#
+#@nxt = NXTComm.new(2)
+#@nxt.get_device_info
+#@nxt.get_firmware_version
+#@nxt.play_tone(500,500)
 
-nxt.motors_abc do |m|
-  m.reset_tacho
-  m.forward(:time => 3, :power => 10)
-  puts "Motor #{m.name} moved #{m.read_state[:degree_count]} degrees."
-end
-
-nxt.disconnect
+# command = Commands::Move.new(@nxt)
+#
+# command.ports = :a
+# command.power = 100
+# command.direction = :backward
+# command.duration = :unlimited
+#
+# command.start
+#
+# sleep(3)
+#
+# command.stop

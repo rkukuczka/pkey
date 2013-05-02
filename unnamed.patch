@@ -1,0 +1,66 @@
+Index: Lekcje/L1-Pole Kwadratu/Pole kwadratu/test/wyliczacz_test.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Lekcje/L1-Pole Kwadratu/Pole kwadratu/test/wyliczacz_test.rb	(revision )
++++ Lekcje/L1-Pole Kwadratu/Pole kwadratu/test/wyliczacz_test.rb	(revision )
+@@ -0,0 +1,32 @@
++require "test/unit"
++require File.dirname(__FILE__) + "\\..\\lib\\wyliczacz.rb"
++
++class MyTest < Test::Unit::TestCase
++
++  # Called before every test method runs. Can be used
++  # to set up fixture information.
++  def setup
++    # Do nothing
++    @wyliczacz = Wyliczacz.new
++  end
++
++  # Called after every test method runs. Can be used to tear
++  # down fixture information.
++
++  def teardown
++    # Do nothing
++  end
++
++  # Fake test
++  def test_1
++       assert(4 == @wyliczacz.pole(2))
++  end
++
++  def test_2
++    assert(0 == @wyliczacz.pole(0))
++  end
++
++  def test_3
++    assert_raises(ArgumentError){(-1 == @wyliczacz.pole(-1))  }
++  end
++end
+\ No newline at end of file
+Index: Lekcje/L1-Pole Kwadratu/Pole kwadratu/lib/main.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nputs \"Podaj dlugosc boku kwadratu w cm\"\nbok = gets().to_i\n\n  wynik_cm = bok*bok\n  wynik_mm = wynik_cm*100\n\n  puts \"pole kwadratu wynosi \" + wynik_cm.to_s() + \" cm2 czyli \" + wynik_mm.to_s() + \" mm2\"\n
+===================================================================
+--- Lekcje/L1-Pole Kwadratu/Pole kwadratu/lib/main.rb	(revision 3c28cfd6bf559c33f3009b8b6093c6a55035ae8a)
++++ Lekcje/L1-Pole Kwadratu/Pole kwadratu/lib/main.rb	(revision )
+@@ -1,8 +1,11 @@
++require File.dirname(__FILE__) + "\\wyliczacz.rb"
+ 
+ puts "Podaj dlugosc boku kwadratu w cm"
+ bok = gets().to_i
+ 
+-  wynik_cm = bok*bok
+-  wynik_mm = wynik_cm*100
++#wynik_cm = bok*bok
++##wynik_mm = wynik_cm*100    ""
+ 
+-  puts "pole kwadratu wynosi " + wynik_cm.to_s() + " cm2 czyli " + wynik_mm.to_s() + " mm2"
++wyliczacz = Wyliczacz.new;
++
++puts "pole kwadratu wynosi #{wyliczacz.pole(bok).to_s()}"
+\ No newline at end of file
