@@ -1,0 +1,11 @@
+<p>
+  <b><%= comment.commenter %> </b>
+   says:
+  <%= comment.body %>
+</p>
+
+<p>
+  <%= link_to 'Destroy', [comment.post, comment],
+              :confirm => 'Are you siures?',
+              :method => :delete %>
+</p>
